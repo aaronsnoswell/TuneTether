@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.android.wifidirect;
+package com.tunetether.mobile;
 
 import android.app.Fragment;
 import android.app.ProgressDialog;
@@ -36,7 +36,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.android.wifidirect.DeviceListFragment.DeviceActionListener;
+import com.tunetether.mobile.DeviceListFragment.DeviceActionListener;
 
 import java.io.File;
 import java.io.FileOutputStream;
