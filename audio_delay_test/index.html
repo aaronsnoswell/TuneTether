@@ -1,0 +1,190 @@
+<html>
+<head>
+    <title>Latency Test for Sound Playback</title>
+</head>
+<body>
+    <h1>Latency Test for Sound Playback</h1>
+    <p>
+    This tool is designed to see how much delay there can be between
+    two identical audio files being played before a human listener
+    thinks they sound 'yucky' or not 'in sync'.
+    </p>
+
+    <p>Enter delay between the two audio files (in ms) and click play.</p>
+
+    <input id="latency" value="0">
+
+    <select id="songselect">
+        <option value="1">Rick Roll</option>
+        <option value="2">Loud Pipes</option>
+        <option value="3">Gold On The Ceiling</option>
+        <option value="4">Touch The Sky</option>
+    </select>
+
+    <br />
+
+    <input type="button" id="play" value="Loading..." disabled="disabled" />
+
+    <script src="./soundmanager2.prod.js"></script>
+
+    <script>
+    /**
+     * I know, I know, inline scripts are bad. It's a prototype - shoot me.
+     */
+
+    var input_latency = document.getElementById("latency"),
+        input_song = document.getElementById("songselect"),
+        input_play = document.getElementById("play"),
+        song1 = {
+            name1: "rickroll",
+            name2: "rickroll_2",
+            filename: "./songs/Never Gonna Give You Up.mp3"
+        },
+        song2 = {
+            name1: "loudpipes",
+            name2: "loudpipes_2",
+            filename: "./songs/Loud Pipes.mp3"
+        },
+        song3 = {
+            name1: "goldceiling",
+            name2: "goldceiling_2",
+            filename: "./songs/Gold On The Ceiling.mp3"
+        },
+        song4 = {
+            name1: "touchthesky",
+            name2: "touchthesky_2",
+            filename: "./songs/Touch The Sky.mp3"
+        };
+
+    /**
+     * This function is called whenever an Async loading method returns
+     * to see if the page is finished loading yet. When it is, it updates
+     * the UI
+     */
+    var ready = false,
+        ready_counter = 0,
+        num_async_events = 8;
+    var check_ready = function() {
+        if(++ready_counter >= num_async_events) {
+            ready = true;
+            input_play.disabled = "";
+            input_play.value = "Click To Play";
+        }
+    }
+
+    soundManager.setup({
+        url: './swf/',
+        onready: function() {
+            // Load songs
+            soundManager.createSound({
+                id: song1.name1,
+                url: song1.filename,
+                autoLoad: true,
+                autoPlay: false,
+                onload: check_ready,
+                volume: 50
+            });
+            soundManager.createSound({
+                id: song1.name2,
+                url: song1.filename,
+                autoLoad: true,
+                autoPlay: false,
+                onload: check_ready,
+                volume: 50
+            });
+
+            soundManager.createSound({
+                id: song2.name1,
+                url: song2.filename,
+                autoLoad: true,
+                autoPlay: false,
+                onload: check_ready,
+                volume: 50
+            });
+            soundManager.createSound({
+                id: song2.name2,
+                url: song2.filename,
+                autoLoad: true,
+                autoPlay: false,
+                onload: check_ready,
+                volume: 50
+            });
+
+            soundManager.createSound({
+                id: song3.name1,
+                url: song3.filename,
+                autoLoad: true,
+                autoPlay: false,
+                onload: check_ready,
+                volume: 50
+            });
+            soundManager.createSound({
+                id: song3.name2,
+                url: song3.filename,
+                autoLoad: true,
+                autoPlay: false,
+                onload: check_ready,
+                volume: 50
+            });
+
+            soundManager.createSound({
+                id: song4.name1,
+                url: song4.filename,
+                autoLoad: true,
+                autoPlay: false,
+                onload: check_ready,
+                volume: 50
+            });
+            soundManager.createSound({
+                id: song4.name2,
+                url: song4.filename,
+                autoLoad: true,
+                autoPlay: false,
+                onload: check_ready,
+                volume: 50
+            });
+        }
+    });
+    
+    var playing = false;
+    input_play.onclick = function() {
+        if(ready) {
+            if(playing) {
+                soundManager.stopAll();
+                playing = false;
+                input_play.value = "Click To Play";
+            } else {
+                var selected_song = input_song.value,
+                    delay = input_latency.value,
+                    song_id_1 = null,
+                    song_id_2 = null;
+
+                if(selected_song == "1") {
+                    song_id_1 = song1.name1;
+                    song_id_2 = song1.name2;
+                } else if(selected_song == "2") {
+                    song_id_1 = song2.name1;
+                    song_id_2 = song2.name2;
+                } else if(selected_song == "3") {
+                    song_id_1 = song3.name1;
+                    song_id_2 = song3.name2;
+                } else if(selected_song == "4") {
+                    song_id_1 = song4.name1;
+                    song_id_2 = song4.name2;
+                }
+
+                if(song_id_1 != null && song_id_2 != null) {
+                    soundManager.play(song_id_1);
+                    setTimeout(function() {
+                        soundManager.play(song_id_2);
+                        playing = true;
+                        input_play.value = "Stop";
+                    }, delay);
+                }
+            }
+        }
+    }
+    
+    </script>
+</body>
+</html>
