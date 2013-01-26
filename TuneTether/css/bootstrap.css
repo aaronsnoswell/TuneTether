@@ -8,6 +8,34 @@
  * Designed and built with all the love in the world @twitter by @mdo and @fat.
  */
 
+@font-face {
+    font-family: 'nexa_lightregular';
+    src: url('../font/nexa_light-webfont.eot');
+    src: url('../font/nexa_light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../font/nexa_light-webfont.woff') format('woff'),
+         url('../font/nexa_light-webfont.ttf') format('truetype'),
+         url('../font/nexa_light-webfont.svg#nexa_lightregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'nexa_boldregular';
+    src: url('../font/nexa_bold-webfont.eot');
+    src: url('../font/nexa_bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../font/nexa_bold-webfont.woff') format('woff'),
+         url('../font/nexa_bold-webfont.ttf') format('truetype'),
+         url('../font/nexa_bold-webfont.svg#nexa_boldregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
 article,
 aside,
 details,
@@ -227,7 +255,7 @@ body {
   font-size: 14px;
   line-height: 20px;
   color: #333333;
-  background: #FFFFFF url('../img/c4700.png') repeat-x;
+  background: #FFFFFF url('../img/c4,620.png') repeat-x;
   }
 
 a {
@@ -721,11 +749,17 @@ h4,
 h5,
 h6 {
   margin: 10px 0;
-  font-family: inherit;
+  font-family: nexa_boldregular;
   font-weight: bold;
   line-height: 20px;
   color: inherit;
   text-rendering: optimizelegibility;
+}
+
+h4,
+h5,
+h6 {
+  font-family: nexa_lightregular;
 }
 
 h1 small,
@@ -746,7 +780,7 @@ h3 {
 }
 
 h1 {
-  font-size: 38.5px;
+  font-size: 46.5px;
 }
 
 h2 {
@@ -762,7 +796,7 @@ h4 {
 }
 
 h5 {
-  font-size: 14px;
+  font-size: 16px;
 }
 
 h6 {
@@ -6036,4 +6070,12 @@ a.badge:hover {
 
 .affix {
   position: fixed;
+}
+
+
+
+
+p {
+  font-family:nexa_lightregular;
+  font-size: 17.5px;
 }
