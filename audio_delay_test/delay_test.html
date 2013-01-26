@@ -15,7 +15,7 @@
     <input id="latency" value="0">
     <input type="button" id="play" value="Loading..." disabled="disabled" />
 
-    <script src="soundmanager2.js"></script>
+    <script src="./soundmanager2.js"></script>
 
     <script>
     /**
@@ -26,7 +26,7 @@
         input_play = document.getElementById("play"),
         song1 = "rick1",
         song2 = "rick2",
-        songfile = "song.mp3";
+        songfile = "./song.mp3";
 
     /**
      * This function is called whenever an Async loading method returns
@@ -45,7 +45,7 @@
     }
 
     soundManager.setup({
-        url: '/swf/',
+        url: './swf/',
         onready: function() {
             // Load songs
             soundManager.createSound({
