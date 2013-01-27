@@ -38,16 +38,21 @@
 		</script>
 	</head>
 	<body>
+		<div class="backgrounder">
 		<div class="container">
 			<div style="height:25px"></div>
 			<div class="row-fluid">
-				<div class="span2 offset1" style="margin-left:85px;">
-					<img src="img/logo.png" class="img-rounded">
+				<div class="span2 offset1 visible-desktop" style="margin-left:85px;">
+					<img src="img/logo.png" class="visible-desktop">
+				</div>
+				<div class="span2 hidden-desktop" style="margin-left:-20px;">
+					<img src="img/logo.png" class="visible-tablet">
+					<img src="img/logo.png" class="visible-phone">
 				</div>
 				<!--div class="span2" style="padding-top:49px; margin-left:3px;">
 					<p style="color:#3D77CE; font-size:25px; font-family:nexa_boldregular;">Tether</p>
 				</div-->
-				<div style="height:100px;"></div>
+				<div class="hidden-phone" style="height:100px;"></div>
 				<div class="row-fluid">
 					<div class="span10 offset1">
 						<h1>Surround sound. </h1> 
@@ -60,10 +65,10 @@
 									<div style="height:20px"></div>
 									<h5><img src="img/check.png"> Sync across phones</h5>
 									<h5><img src="img/check.png"> Listen with friends</h5>
-									<div style="height:25px"></div>
+									<div class="hidden-phone" style="height:25px"></div>
 								</div>
 								<div class="span6">
-									<div style="height:20px"></div>
+									<div class="hidden-phone" style="height:20px"></div>
 									<h5><img src="img/check.png"> Portable surround sound</h5>
 									<h5><img src="img/check.png"> 3G, 4G, or WiFi</h5>
 									<div style="height:25px"></div>
@@ -89,6 +94,9 @@
 					</div>
 				</div>
 			</div>
+		</div>
+		</div>
+		<div class="container">
 			<div class="row">
 				<div class="span4 offset1">
 					<h3>Music Wherever You Are</h3>

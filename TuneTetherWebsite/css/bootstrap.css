@@ -8,6 +8,10 @@
  * Designed and built with all the love in the world @twitter by @mdo and @fat.
  */
 
+
+
+
+
 @font-face {
     font-family: 'nexa_lightregular';
     src: url('../font/nexa_light-webfont.eot');
@@ -249,13 +253,28 @@ textarea {
           box-sizing: border-box;
 }
 
+.backgrounder {
+  margin: 0px -20px 0px -20px;
+  background-image: -webkit-gradient(
+  linear,
+  left bottom,
+  left top,
+  color-stop(0.07, #C4C4C4),
+  color-stop(0.54, #D4D4D4),
+  color-stop(0.77, #E0E0E0),
+  color-stop(0.89, #EDEDED),
+  color-stop(0.95, #F5F5F5),
+  color-stop(0.98, #FAFAFA)
+);
+}
+
 body {
   margin: 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 20px;
   color: #333333;
-  background: #FFFFFF url('../img/c4,620.png') repeat-x;
+  background: #FFFFFF;
   }
 
 a {
