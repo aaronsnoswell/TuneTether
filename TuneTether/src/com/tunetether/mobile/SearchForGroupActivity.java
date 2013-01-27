@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.tunetether.mobile.MyApplication.OnDeviceConnectedListener;
 import com.tunetether.mobile.MyApplication.OnPeerListChangedListener;
 
-public class SearchForGroup extends Activity {
+public class SearchForGroupActivity extends Activity {
 	LinearLayout lyt_device_list;
 	Button btn_cancel;
 	
@@ -48,7 +48,7 @@ public class SearchForGroup extends Activity {
 			@Override
 			public void onDeviceConnected() {
 				// The user connected to a device
-				Intent i = new Intent(SearchForGroup.this, ClientPlayingScreen.class);
+				Intent i = new Intent(SearchForGroupActivity.this, ClientPlayingActivity.class);
 				startActivity(i);
 			}
 		});
@@ -64,7 +64,7 @@ public class SearchForGroup extends Activity {
 		lyt_device_list.removeAllViews();
 		
 		for(WifiP2pDevice device : peers.getDeviceList()) {
-			View inflatedView = View.inflate(SearchForGroup.this, R.layout.device_list_item, null);
+			View inflatedView = View.inflate(SearchForGroupActivity.this, R.layout.device_list_item, null);
 			inflatedView.setTag(device);
 			
 			((TextView)inflatedView.findViewById(R.id.device_name)).setText(device.deviceName);

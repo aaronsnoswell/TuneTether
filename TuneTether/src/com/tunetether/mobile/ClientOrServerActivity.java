@@ -26,12 +26,12 @@ public class ClientOrServerActivity extends Activity {
 
         btn_create_group = ((Button)findViewById(R.id.create_group));
         btn_connect_to_group = ((Button)findViewById(R.id.connect_to_group));
-
+        
         btn_create_group.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				// Create a WifiDirect group
-				Intent i = new Intent(ClientOrServerActivity.this, CreateGroup.class);
+				Intent i = new Intent(ClientOrServerActivity.this, CreateGroupActivity.class);
 				startActivity(i);
 			}
 		});
@@ -40,7 +40,7 @@ public class ClientOrServerActivity extends Activity {
 			@Override
 			public void onClick(View view) {
 				// Connect to a WifiDirect group
-				Intent i = new Intent(ClientOrServerActivity.this, SearchForGroup.class);
+				Intent i = new Intent(ClientOrServerActivity.this, SearchForGroupActivity.class);
 				startActivity(i);
 			}
 		});
@@ -52,7 +52,7 @@ public class ClientOrServerActivity extends Activity {
 				if(!enabled) {
 					// Drop back to the enable wifi p2p screen
 					Toast.makeText(ClientOrServerActivity.this, "WifiP2P was disabled", Toast.LENGTH_SHORT);
-					Intent i = new Intent(ClientOrServerActivity.this, TuneTetherStartActivity.class);
+					Intent i = new Intent(ClientOrServerActivity.this, StartActivity.class);
 					startActivity(i);
 				}
 			}

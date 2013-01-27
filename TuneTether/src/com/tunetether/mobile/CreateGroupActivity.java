@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-public class CreateGroup extends Activity {
+public class CreateGroupActivity extends Activity {
 	EditText edt_group_name;
 	Spinner spn_select_song;
 	Button btn_next;
@@ -40,23 +40,12 @@ public class CreateGroup extends Activity {
 			}
 		});
         
-        btn_next.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				String name = edt_group_name.getText().toString();
-				String song_name = spn_select_song.getSelectedItem().toString();
-				
-				// Create the WifiP2P Group
-				((MyApplication)getApplication()).createGroup();
-			}
-		});
-        
         ((MyApplication)getApplication()).addGroupCreatedListener(new MyApplication.OnGroupCreatedListener() {
         	
         	@Override
         	public void onGroupCreated() {
         		// The group has been created
-        		Intent i = new Intent(CreateGroup.this, WaitForClients.class);
+        		Intent i = new Intent(CreateGroupActivity.this, WaitForClientsActivity.class);
         		startActivity(i);
         	}
         });
@@ -67,10 +56,21 @@ public class CreateGroup extends Activity {
 			public void onEnabledChanged(boolean enabled) {
 				if(!enabled) {
 					// Drop back to the enable wifi p2p screen
-					Toast.makeText(CreateGroup.this, "WifiP2P was disabled", Toast.LENGTH_SHORT);
-					Intent i = new Intent(CreateGroup.this, TuneTetherStartActivity.class);
+					Toast.makeText(CreateGroupActivity.this, "WifiP2P was disabled", Toast.LENGTH_SHORT);
+					Intent i = new Intent(CreateGroupActivity.this, StartActivity.class);
 					startActivity(i);
 				}
+			}
+		});
+        
+        btn_next.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				String name = edt_group_name.getText().toString();
+				String song_name = spn_select_song.getSelectedItem().toString();
+				
+				// Create the WifiP2P Group
+				((MyApplication)getApplication()).createGroup();
 			}
 		});
     }

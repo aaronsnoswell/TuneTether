@@ -215,7 +215,7 @@ public class MyApplication extends Application {
 
                 @Override
                 public void onFailure(int reasonCode) {
-                    Toast.makeText(getApplicationContext(), "Couldn't create group! Please try again", Toast.LENGTH_SHORT);
+                    Toast.makeText(getApplicationContext(), "Couldn't create group! Please try again", Toast.LENGTH_SHORT).show();
                     Log.d(MyApplication.this.TAG, "Group Creation Failed!");
                 }
             }
@@ -228,13 +228,13 @@ public class MyApplication extends Application {
 			
 			@Override
 			public void onSuccess() {
-                Toast.makeText(getApplicationContext(), "Searching for Group Members...", Toast.LENGTH_SHORT);
+                Toast.makeText(getApplicationContext(), "Searching for Group Members...", Toast.LENGTH_SHORT).show();
 				Log.d(MyApplication.this.TAG, "Peers Discovery Started!");
 			}
 			
 			@Override
 			public void onFailure(int reason) {
-                Toast.makeText(getApplicationContext(), "Couldn't find other devices! Please try again", Toast.LENGTH_SHORT);
+                Toast.makeText(getApplicationContext(), "Couldn't find other devices! Please try again", Toast.LENGTH_SHORT).show();
                 Log.d(MyApplication.this.TAG, "Peer Discovery Failed!");
 			}
 		});
@@ -273,7 +273,7 @@ public class MyApplication extends Application {
 			
 			@Override
 			public void onSuccess() {
-                Toast.makeText(getApplicationContext(), "Connected to Device!", Toast.LENGTH_SHORT);
+                Toast.makeText(getApplicationContext(), "Connected to Device!", Toast.LENGTH_SHORT).show();
                 Log.d(MyApplication.this.TAG, "Device Connected!");
                 
                 for(OnDeviceConnectedListener listener : deviceConnectedListeners) {
@@ -283,7 +283,7 @@ public class MyApplication extends Application {
 			
 			@Override
 			public void onFailure(int reason) {
-                Toast.makeText(getApplicationContext(), "Couldn't connect to device!", Toast.LENGTH_SHORT);
+                Toast.makeText(getApplicationContext(), "Couldn't connect to device!", Toast.LENGTH_SHORT).show();
                 Log.d(MyApplication.this.TAG, "Device Connection Failed!");
 			}
 		});

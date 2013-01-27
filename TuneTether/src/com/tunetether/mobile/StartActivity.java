@@ -14,7 +14,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class TuneTetherStartActivity extends Activity {
+public class StartActivity extends Activity {
     
 	Button btn_enable_wifidirect;
 	Button btn_next;
@@ -45,7 +45,7 @@ public class TuneTetherStartActivity extends Activity {
         btn_next.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent next = new Intent(TuneTetherStartActivity.this, ClientOrServerActivity.class);
+				Intent next = new Intent(StartActivity.this, ClientOrServerActivity.class);
 				startActivity(next);
 			}
 		});
@@ -70,6 +70,8 @@ public class TuneTetherStartActivity extends Activity {
     @Override
     public void onResume() {
         super.onResume();
+        
+        //((MyApplication)getApplication()).manager.
     }
 
     @Override

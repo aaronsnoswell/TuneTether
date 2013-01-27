@@ -20,7 +20,7 @@
         android:theme="@android:style/Theme.Holo"
         android:name="MyApplication">
         <activity
-            android:name="TuneTetherStartActivity"
+            android:name=".StartActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask">
             <intent-filter>
@@ -37,22 +37,22 @@
             android:launchMode="singleTask" />
         
         <activity
-            android:name="CreateGroup"
+            android:name=".CreateGroupActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask" />
         
         <activity
-            android:name="WaitForClients"
+            android:name=".WaitForClientsActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask" />
         
         <activity
-            android:name="SearchForGroup"
+            android:name=".SearchForGroupActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask" />
         
         <activity
-            android:name="ClientPlayingScreen"
+            android:name=".ClientPlayingActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask" />
 

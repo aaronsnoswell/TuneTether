@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class ClientPlayingScreen extends Activity {
+public class ClientPlayingActivity extends Activity {
 	Button btn_disconnect;
 	
     @Override

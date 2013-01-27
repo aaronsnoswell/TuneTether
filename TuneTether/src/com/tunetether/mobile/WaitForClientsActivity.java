@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
-public class WaitForClients extends Activity {
+public class WaitForClientsActivity extends Activity {
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -20,8 +20,8 @@ public class WaitForClients extends Activity {
 			public void onEnabledChanged(boolean enabled) {
 				if(!enabled) {
 					// Drop back to the enable wifi p2p screen
-					Toast.makeText(WaitForClients.this, "WifiP2P was disabled", Toast.LENGTH_SHORT);
-					Intent i = new Intent(WaitForClients.this, TuneTetherStartActivity.class);
+					Toast.makeText(WaitForClientsActivity.this, "WifiP2P was disabled", Toast.LENGTH_SHORT);
+					Intent i = new Intent(WaitForClientsActivity.this, StartActivity.class);
 					startActivity(i);
 				}
 			}
