@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.tunetether.mobile;
+package com.tunetether.mobile_sample;
 
 import android.app.ListFragment;
 import android.app.ProgressDialog;

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.tunetether.mobile;
+package com.tunetether.mobile_sample;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -36,7 +36,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.tunetether.mobile.DeviceListFragment.DeviceActionListener;
+import com.tunetether.mobile_sample.DeviceListFragment.DeviceActionListener;
 
 /**
  * An activity that uses WiFi Direct APIs to discover and connect with available

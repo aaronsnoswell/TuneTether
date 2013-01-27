@@ -1,4 +1,4 @@
-package com.tunetether.mobile;
+package com.tunetether.mobile_sample;
 
 import java.io.IOException;
 

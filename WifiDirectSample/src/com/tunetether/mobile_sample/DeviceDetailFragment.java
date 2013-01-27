@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.tunetether.mobile;
+package com.tunetether.mobile_sample;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -45,7 +45,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.tunetether.mobile.DeviceListFragment.DeviceActionListener;
+import com.tunetether.mobile_sample.DeviceListFragment.DeviceActionListener;
 
 /**
  * A fragment that manages a particular peer and allows interaction with device
@@ -128,6 +128,8 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
         getActivity().startService(serviceIntent);
         */
     }
+    
+    private Intent serviceIntent;
 
     @Override
     public void onConnectionInfoAvailable(final WifiP2pInfo info) {
@@ -175,7 +177,8 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
         		        TextView statusText = (TextView) mContentView.findViewById(R.id.status_text);
         		        statusText.setText("Sending Stop Message");
         		        
-        		        Intent serviceIntent = new Intent(getActivity(), SendStringMessageService.class);
+        		        if(serviceIntent != null) getActivity().stopService(serviceIntent);
+        		        serviceIntent = new Intent(getActivity(), SendStringMessageService.class);
         		        serviceIntent.setAction(SendStringMessageService.ACTION_SEND_MESSAGE);
         		        serviceIntent.putExtra(SendStringMessageService.EXTRAS_MESSAGE_TEXT, "STOPALL");
         		        serviceIntent.putExtra(SendStringMessageService.EXTRAS_GROUP_OWNER_ADDRESS, info.groupOwnerAddress.getHostAddress());
@@ -194,15 +197,18 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
         		        
         		        String command = "PLAY:";
         		        String songname = ((Spinner)getActivity().findViewById(R.id.select_song)).getSelectedItem().toString();
-        		        
-        		        Intent serviceIntent = new Intent(getActivity(), SendStringMessageService.class);
+        		        songname += ".mp3";
+        		        command = command + songname;
+
+        		        if(serviceIntent != null) getActivity().stopService(serviceIntent);
+        		        serviceIntent = new Intent(getActivity(), SendStringMessageService.class);
         		        serviceIntent.setAction(SendStringMessageService.ACTION_SEND_MESSAGE);
-        		        serviceIntent.putExtra(SendStringMessageService.EXTRAS_MESSAGE_TEXT, "PLAY:rickroll.mp3");
+        		        serviceIntent.putExtra(SendStringMessageService.EXTRAS_MESSAGE_TEXT, command);
         		        serviceIntent.putExtra(SendStringMessageService.EXTRAS_GROUP_OWNER_ADDRESS, info.groupOwnerAddress.getHostAddress());
         		        serviceIntent.putExtra(SendStringMessageService.EXTRAS_GROUP_OWNER_PORT, 8988);
         		        getActivity().startService(serviceIntent);
         		        
-        		        audio.play_file(getActivity(), "rickroll.mp3");
+        		        audio.play_file(getActivity(), songname);
         		        
         		        ((Button)getActivity().findViewById(R.id.play_song)).setText("Stop Playing");
         		        

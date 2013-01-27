@@ -1,6 +1,6 @@
 // Copyright 2011 Google Inc. All Rights Reserved.
 
-package com.tunetether.mobile;
+package com.tunetether.mobile_sample;
 
 import android.app.IntentService;
 import android.content.ContentResolver;
