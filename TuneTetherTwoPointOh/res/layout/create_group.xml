@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" >
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="56dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/titlebar" />
+        
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:src="@drawable/banner"
+            android:layout_marginTop="7dp" />
+    </RelativeLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:padding="10dp" >
+	
+	    <TextView
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="Enter Group Name:"
+            android:textSize="16dp" />
+	    
+	    <EditText
+	        android:id="@+id/group_name"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:hint="Enter Group Name" 
+            android:layout_marginTop="10dp" />
+	
+	    <TextView
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="Select First Song To Play:"
+            android:textSize="16dp"
+            android:layout_marginTop="10dp" />
+	    
+	    <Spinner
+	        android:id="@+id/select_song"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content" 
+	        android:entries="@array/song_array"
+	        android:prompt="@string/song_prompt"
+            android:layout_marginTop="10dp" />
+	    
+	    <Button
+	        android:id="@+id/next"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="Create Group"
+            android:layout_marginTop="10dp" />
+        
+    </LinearLayout>
+
+</LinearLayout>

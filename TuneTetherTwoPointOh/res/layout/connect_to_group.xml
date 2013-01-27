@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" >
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="56dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/titlebar" />
+        
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:src="@drawable/banner"
+            android:layout_marginTop="7dp" />
+    </RelativeLayout>
+    
+    <RelativeLayout
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:padding="10dp" >
+	    
+	    <LinearLayout android:id="@+id/myHeader"
+	        android:layout_alignParentTop="true"
+	        android:layout_height="wrap_content"
+	        android:layout_width="fill_parent"
+	        android:orientation="vertical" >
+	        
+            <TextView
+                android:id="@+id/local_device_id"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="You Are: "
+                android:textStyle="bold"
+                android:textSize="20dp" />
+            
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Visible Devices:"
+                android:textSize="16dp"
+                android:paddingTop="10dp" />
+            
+            <!-- Horizontal Divider -->
+		    <View
+		        android:layout_width="fill_parent"
+		        android:layout_height="1dp"
+		        android:gravity="center_vertical"
+		        android:background="@android:color/darker_gray" />
+		    
+	    </LinearLayout>
+	
+	    <ScrollView
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:layout_above="@+id/myFooter"
+	        android:layout_below="@+id/myHeader">
+	        <LinearLayout
+	            android:layout_width="match_parent"
+	            android:id="@+id/linearLayout1"
+	            android:layout_height="match_parent"
+	            android:orientation="vertical">
+	            
+				<fragment
+				    class="com.tunetether.mobile.DeviceDetailFragment"
+				    android:id="@+id/frag_detail"
+				    android:layout_width="match_parent"
+				    android:layout_height="match_parent">
+				    <!-- Preview: layout=@layout/device_detail -->
+				</fragment>
+				
+				<fragment
+				    class="com.tunetether.mobile.DeviceListFragment"
+				    android:id="@+id/frag_list"
+				    android:layout_width="match_parent"
+				    android:layout_height="@dimen/phone_list_height">
+				    <!-- Preview: layout=@layout/row_devices -->
+				</fragment>
+	            
+	        </LinearLayout>
+	    </ScrollView>
+	
+	    <RelativeLayout android:id="@+id/myFooter"
+	        android:layout_alignParentBottom="true"
+	        android:layout_height="wrap_content"
+	        android:layout_width="fill_parent">
+	        <LinearLayout
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:orientation="vertical">
+                <Button
+                    android:id="@+id/scan_again"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Search Again" />
+                
+                <Button
+                    android:id="@+id/cancel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Cancel" />
+	        </LinearLayout>
+	    </RelativeLayout>
+	
+	</RelativeLayout>
+
+</LinearLayout>
+

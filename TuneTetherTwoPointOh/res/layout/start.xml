@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" >
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="150dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/header" />
+        
+	    <ImageView
+	        android:layout_width="fill_parent"
+	        android:layout_height="100dp"
+	        android:src="@drawable/logo"
+	        android:layout_marginTop="25dp" />
+    </RelativeLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:padding="10dp" >
+    
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Welcome to TuneTether - the social stereo™"
+            android:textStyle="bold"
+            android:textSize="25dp" />
+    
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="In just a few moments more you'll be swanking out to the sublime sound of some smooth, smooth tunes..."
+            android:textSize="16dp" />
+	    
+	    <Button
+	        android:id="@+id/enable_wifi"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="Step 1: Click to enable Wifi / WifiDirect"
+            android:layout_marginTop="10dp" />
+	    
+	    <Button
+	        android:id="@+id/next"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:enabled="true"
+	        android:text="Next Step"
+            android:layout_marginTop="10dp" />
+    </LinearLayout>
+
+</LinearLayout>
