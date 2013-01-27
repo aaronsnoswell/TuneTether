@@ -16,12 +16,19 @@
 
 package com.tunetether.mobile;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.net.wifi.WpsInfo;
 import android.net.wifi.p2p.WifiP2pConfig;
 import android.net.wifi.p2p.WifiP2pDevice;
@@ -29,22 +36,16 @@ import android.net.wifi.p2p.WifiP2pInfo;
 import android.net.wifi.p2p.WifiP2pManager.ConnectionInfoListener;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.tunetether.mobile.DeviceListFragment.DeviceActionListener;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.ServerSocket;
-import java.net.Socket;
 
 /**
  * A fragment that manages a particular peer and allows interaction with device
@@ -57,6 +58,10 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
     private WifiP2pDevice device;
     private WifiP2pInfo info;
     ProgressDialog progressDialog = null;
+    
+    AudioPlayer audio = new AudioPlayer();
+    private boolean playing_song = false;
+    
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -100,26 +105,14 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
                         ((DeviceActionListener) getActivity()).disconnect();
                     }
                 });
-
-        mContentView.findViewById(R.id.btn_start_client).setOnClickListener(
-                new View.OnClickListener() {
-
-                    @Override
-                    public void onClick(View v) {
-                        // Allow user to pick an image from Gallery or other
-                        // registered apps
-                        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                        intent.setType("image/*");
-                        startActivityForResult(intent, CHOOSE_FILE_RESULT_CODE);
-                    }
-                });
-
+        
         return mContentView;
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
+    	
+    	/*
         // User has picked an image. Transfer it to group owner i.e peer using
         // FileTransferService.
         Uri uri = data.getData();
@@ -133,6 +126,7 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
                 info.groupOwnerAddress.getHostAddress());
         serviceIntent.putExtra(FileTransferService.EXTRAS_GROUP_OWNER_PORT, 8988);
         getActivity().startService(serviceIntent);
+        */
     }
 
     @Override
@@ -157,14 +151,70 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
         // server. The file server is single threaded, single connection server
         // socket.
         if (info.groupFormed && info.isGroupOwner) {
-            new FileServerAsyncTask(getActivity(), mContentView.findViewById(R.id.status_text))
-                    .execute();
+        	
+        	new ReceiveStringMessageServerAsyncTask(getActivity(), mContentView.findViewById(R.id.status_text)).execute();
+        	
         } else if (info.groupFormed) {
             // The other device acts as the client. In this case, we enable the
             // get file button.
+        	
+        	/*
             mContentView.findViewById(R.id.btn_start_client).setVisibility(View.VISIBLE);
             ((TextView) mContentView.findViewById(R.id.status_text)).setText(getResources()
                     .getString(R.string.client_text));
+                    */
+        	
+        	// Set up the play button
+            ((Button)getActivity().findViewById(R.id.play_song)).setOnClickListener(new OnClickListener() {
+    			
+    			@Override
+    			public void onClick(View v) {
+    				
+    				if(playing_song) {
+        				// Send start playing message
+        		        TextView statusText = (TextView) mContentView.findViewById(R.id.status_text);
+        		        statusText.setText("Sending Stop Message");
+        		        
+        		        Intent serviceIntent = new Intent(getActivity(), SendStringMessageService.class);
+        		        serviceIntent.setAction(SendStringMessageService.ACTION_SEND_MESSAGE);
+        		        serviceIntent.putExtra(SendStringMessageService.EXTRAS_MESSAGE_TEXT, "STOPALL");
+        		        serviceIntent.putExtra(SendStringMessageService.EXTRAS_GROUP_OWNER_ADDRESS, info.groupOwnerAddress.getHostAddress());
+        		        serviceIntent.putExtra(SendStringMessageService.EXTRAS_GROUP_OWNER_PORT, 8988);
+        		        getActivity().startService(serviceIntent);
+        		        
+        		        audio.stopAll();
+        		        
+        		        ((Button)getActivity().findViewById(R.id.play_song)).setText("Play Song");
+        		        
+        		        playing_song = false;
+    				} else {
+        				// Send start playing message
+        		        TextView statusText = (TextView) mContentView.findViewById(R.id.status_text);
+        		        statusText.setText("Sending Play Message");
+        		        
+        		        String command = "PLAY:";
+        		        String songname = ((Spinner)getActivity().findViewById(R.id.select_song)).getSelectedItem().toString();
+        		        
+        		        Intent serviceIntent = new Intent(getActivity(), SendStringMessageService.class);
+        		        serviceIntent.setAction(SendStringMessageService.ACTION_SEND_MESSAGE);
+        		        serviceIntent.putExtra(SendStringMessageService.EXTRAS_MESSAGE_TEXT, "PLAY:rickroll.mp3");
+        		        serviceIntent.putExtra(SendStringMessageService.EXTRAS_GROUP_OWNER_ADDRESS, info.groupOwnerAddress.getHostAddress());
+        		        serviceIntent.putExtra(SendStringMessageService.EXTRAS_GROUP_OWNER_PORT, 8988);
+        		        getActivity().startService(serviceIntent);
+        		        
+        		        audio.play_file(getActivity(), "rickroll.mp3");
+        		        
+        		        ((Button)getActivity().findViewById(R.id.play_song)).setText("Stop Playing");
+        		        
+        		        playing_song = true;
+    				}
+    				
+    		        
+    			}
+    		});
+        	
+        	// Enable the play song button
+        	((Button)getActivity().findViewById(R.id.play_song)).setEnabled(true);
         }
 
         // hide the connect button
@@ -199,7 +249,6 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
         view.setText(R.string.empty);
         view = (TextView) mContentView.findViewById(R.id.status_text);
         view.setText(R.string.empty);
-        mContentView.findViewById(R.id.btn_start_client).setVisibility(View.GONE);
         this.getView().setVisibility(View.GONE);
     }
 
@@ -207,8 +256,9 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
      * A simple server socket that accepts connection and writes some data on
      * the stream.
      */
-    public static class FileServerAsyncTask extends AsyncTask<Void, Void, String> {
-
+    public static class ReceiveStringMessageServerAsyncTask extends AsyncTask<Void, Void, String> {
+    	
+    	private AudioPlayer audio = new AudioPlayer();
         private Context context;
         private TextView statusText;
 
@@ -216,7 +266,7 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
          * @param context
          * @param statusText
          */
-        public FileServerAsyncTask(Context context, View statusText) {
+        public ReceiveStringMessageServerAsyncTask(Context context, View statusText) {
             this.context = context;
             this.statusText = (TextView) statusText;
         }
@@ -228,20 +278,20 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
                 Log.d(WiFiDirectActivity.TAG, "Server: Socket opened");
                 Socket client = serverSocket.accept();
                 Log.d(WiFiDirectActivity.TAG, "Server: connection done");
-                final File f = new File(Environment.getExternalStorageDirectory() + "/"
-                        + context.getPackageName() + "/wifip2pshared-" + System.currentTimeMillis()
-                        + ".jpg");
-
-                File dirs = new File(f.getParent());
-                if (!dirs.exists())
-                    dirs.mkdirs();
-                f.createNewFile();
-
-                Log.d(WiFiDirectActivity.TAG, "server: copying files " + f.toString());
+                
                 InputStream inputstream = client.getInputStream();
-                copyFile(inputstream, new FileOutputStream(f));
-                serverSocket.close();
-                return f.getAbsolutePath();
+                
+            	// Read message with BufferedReader
+            	BufferedReader br = new BufferedReader(new InputStreamReader(inputstream));
+            	
+            	String total_msg = "";
+            	String line;
+            	while ((line = br.readLine()) != null) {
+            		total_msg += line;
+            	}
+            	
+            	serverSocket.close();
+                return total_msg;
             } catch (IOException e) {
                 Log.e(WiFiDirectActivity.TAG, e.getMessage());
                 return null;
@@ -253,15 +303,19 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
          * @see android.os.AsyncTask#onPostExecute(java.lang.Object)
          */
         @Override
-        protected void onPostExecute(String result) {
-            if (result != null) {
-                statusText.setText("File copied - " + result);
-                Intent intent = new Intent();
-                intent.setAction(android.content.Intent.ACTION_VIEW);
-                intent.setDataAndType(Uri.parse("file://" + result), "image/*");
-                context.startActivity(intent);
+        protected void onPostExecute(String command) {
+            if (command != null) {
+            	
+            	if(command.contains("PLAY:")) {
+            		String filename = command.split("PLAY:")[1];
+                	audio.play_file((Activity)context, filename);
+            	} else if(command.contains("STOPALL")) {
+            		audio.stopAll();
+            	} else {
+            		Log.d("FOFSODFOSDF", "Unsupported message");
+            	}
+            	
             }
-
         }
 
         /*
@@ -275,7 +329,7 @@ public class DeviceDetailFragment extends Fragment implements ConnectionInfoList
 
     }
 
-    public static boolean copyFile(InputStream inputStream, OutputStream out) {
+    public static boolean copyStream(InputStream inputStream, OutputStream out) {
         byte buf[] = new byte[1024];
         int len;
         try {

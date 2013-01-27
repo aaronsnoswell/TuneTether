@@ -15,4 +15,14 @@
     <string name="group_owner_text">"Am I the Group Owner? "</string>
     <string name="label_me">ME</string>
     <string name="label_peers">PEERS</string>
+    
+    <string name="song_prompt">Choose a Song</string>
+    
+    <string-array name="song_array">
+        <item>Rick Roll</item>
+        <item>Gold On The Ceiling</item>
+        <item>Loud Pipes</item>
+        <item>Touch The Sky</item>
+    </string-array>
+    
 </resources>
