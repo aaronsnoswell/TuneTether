@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Tune Tether</string>
+    
+    <string name="song_prompt">Choose a song</string>
+ 
+    <string-array name="song_array">
+        <item>Rick Roll</item>
+        <item>Gold On The Ceiling</item>
+        <item>Never Gonna Give You Up</item>
+        <item>Touch The Sky</item>
+    </string-array>
+    
+</resources>
